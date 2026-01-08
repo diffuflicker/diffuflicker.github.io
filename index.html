@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiffuFlicker: Diffusion-based LED Traffic Light Flicker Mitigation</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="title">DiffuFlicker</h1>
+            <h2 class="subtitle">Diffusion-based LED Traffic Light Flicker Mitigation in Dashcam Videos</h2>
+
+            <div class="authors">
+                <span class="author">Sujin Kim<sup>1</sup></span>
+                <span class="author">Juwon Lee<sup>2</sup></span>
+                <span class="author">In Kyu Park<sup>1*</sup></span>
+            </div>
+
+            <div class="affiliations">
+                <p><sup>1</sup>Inha University &nbsp;&nbsp; <sup>2</sup>EMTOMEGA CO., LTD.</p>
+                <p class="corresponding">* Corresponding Author</p>
+            </div>
+
+            <div class="links">
+                <a href="#" class="btn">Paper (PDF)</a>
+                <a href="#" class="btn">arXiv</a>
+                <a href="#" class="btn">Code (GitHub)</a>
+                <a href="#" class="btn">Dataset</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Teaser - Flicker Result Demo -->
+    <section class="section teaser">
+        <div class="container">
+            <div class="teaser-video">
+                <video controls autoplay muted loop playsinline>
+                    <source src="media/teaser/20210705_044407_F_Nor_combined_4K_Short.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <p class="teaser-caption">
+                DiffuFlicker restores LED traffic light signals affected by PWM-camera frequency mismatch.
+            </p>
+        </div>
+    </section>
+
+    <!-- Abstract -->
+    <!--
+    <section class="section abstract">
+        <div class="container">
+            <h2>Abstract</h2>
+            <p>
+                The flicker phenomenon caused by the mismatch between PWM-driven LED traffic lights and camera frame rates
+                degrades the reliability of traffic-light perception in autonomous driving systems. This paper presents
+                a rule-based baseline method and a diffusion-based restoration approach, termed <strong>DiffuFlicker</strong>.
+                DiffuFlicker employs a class-conditioned temporal 3D U-Net together with an SDEdit-based adaptive restoration strategy,
+                enabling robust recovery under both high-frequency (HFF) and low-frequency (LFF) flicker conditions.
+                Experimental results on 132 synthetic video sequences demonstrate that DiffuFlicker achieves an average
+                PSNR improvement of <strong>+4.74 dB</strong>, outperforming the rule-based baseline, which yields a +3.85 dB gain,
+                by a margin of 0.89 dB.
+            </p>
+        </div>
+    </section>
+    -->
+
+    <!-- Flicker Problem -->
+    <section class="section problem">
+        <div class="container">
+            <h2>LED Traffic Light Flicker Problem</h2>
+            <p class="section-desc">
+                Modern LED traffic lights use PWM (Pulse Width Modulation) for energy efficiency.
+                When the PWM frequency mismatches with camera frame rates, captured videos show flicker artifacts.
+            </p>
+
+            <!-- Animated GIF Comparison -->
+            <div class="flicker-gif-comparison">
+                <div class="gif-comparison-item">
+                    <img src="media/flicker_mechanism/4_gif_noflicker.gif" alt="No Flicker">
+                    <span>No Flicker (Normal)</span>
+                </div>
+                <div class="gif-comparison-item">
+                    <img src="media/flicker_mechanism/5_gif_lff.gif" alt="Low-Frequency Flicker">
+                    <span>Low-Frequency Flicker (LFF)</span>
+                </div>
+                <div class="gif-comparison-item">
+                    <img src="media/flicker_mechanism/6_gif_hff.gif" alt="High-Frequency Flicker">
+                    <span>High-Frequency Flicker (HFF)</span>
+                </div>
+            </div>
+
+            <div class="flicker-detail">
+                <h3>High-Frequency Flicker (HFF)</h3>
+                <p>Rapid on-off transitions across consecutive frames due to direct PWM-camera interference.</p>
+                <div class="image-row-large">
+                    <div class="image-item">
+                        <img src="media/flicker_examples/hff/hff_t0.png" alt="HFF t">
+                        <span>t</span>
+                    </div>
+                    <div class="image-item">
+                        <img src="media/flicker_examples/hff/hff_t1.png" alt="HFF t+1">
+                        <span>t+1</span>
+                    </div>
+                    <div class="image-item">
+                        <img src="media/flicker_examples/hff/hff_t2.png" alt="HFF t+2">
+                        <span>t+2</span>
+                    </div>
+                    <div class="image-item">
+                        <img src="media/flicker_examples/hff/hff_t3.png" alt="HFF t+3">
+                        <span>t+3</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flicker-detail">
+                <h3>Low-Frequency Flicker (LFF)</h3>
+                <p>Gradual brightness variations over tens of frames due to beat phenomenon.</p>
+                <div class="image-row-large">
+                    <div class="image-item">
+                        <img src="media/flicker_examples/lff/lff_t0.png" alt="LFF t">
+                        <span>t</span>
+                    </div>
+                    <div class="image-item">
+                        <img src="media/flicker_examples/lff/lff_t11.png" alt="LFF t+11">
+                        <span>t+11</span>
+                    </div>
+                    <div class="image-item">
+                        <img src="media/flicker_examples/lff/lff_t21.png" alt="LFF t+21">
+                        <span>t+21</span>
+                    </div>
+                    <div class="image-item">
+                        <img src="media/flicker_examples/lff/lff_t40.png" alt="LFF t+40">
+                        <span>t+40</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Method Overview -->
+    <section class="section method">
+        <div class="container">
+            <h2>Method Overview</h2>
+            <div class="method-image">
+                <img src="media/architecture/diffuflicker_architecture.png" alt="DiffuFlicker Architecture">
+            </div>
+            <p class="method-desc">
+                DiffuFlicker uses a class-conditioned temporal 3D U-Net with SDEdit-based adaptive restoration.
+                The model takes 5 consecutive ROI frames as input, leveraging temporal context from preceding frames
+                to restore the target frame. Two conditions guide the restoration: (1) a reference ROI from the brightest frame,
+                and (2) a class embedding representing one of 8 traffic light states.
+            </p>
+        </div>
+    </section>
+
+    <!-- Pipeline -->
+    <section class="section pipeline">
+        <div class="container">
+            <h2>Processing Pipeline</h2>
+            <p class="section-desc">
+                The system performs detection (with tracking IDs), classification (signal state labels),
+                and segmentation (highlighted signal regions) on dashcam video frames.
+            </p>
+            <div class="pipeline-image">
+                <img src="media/pipeline/detection_class_seg.png" alt="Detection, Classification, Segmentation Pipeline">
+            </div>
+            <div class="pipeline-details">
+                <div class="detail-item">
+                    <strong>Detection:</strong> YOLO11m with 4 classes (AP50: 94.86%)
+                </div>
+                <div class="detail-item">
+                    <strong>Classification:</strong> EfficientNetV2-S with 8 signal states (Accuracy: 93.67%)
+                </div>
+                <div class="detail-item">
+                    <strong>Segmentation:</strong> U-Net for active signal regions (Accuracy: 95.83%)
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results -->
+    <section class="section results">
+        <div class="container">
+            <h2>Experimental Results</h2>
+
+            <!-- Qualitative Comparison - Synthesized -->
+            <div class="subsection">
+                <h3>Qualitative Comparison on Synthesized Videos</h3>
+                <p class="subsection-desc">From top to bottom: Original (GT), Flickered input, FlickerFix result, DiffuFlicker result.</p>
+                <div class="comparison-grid-vertical">
+                    <div class="comparison-labels">
+                        <span>Original (GT)</span>
+                        <span>Flickered</span>
+                        <span>FlickerFix</span>
+                        <span>DiffuFlicker (Ours)</span>
+                    </div>
+                    <div class="comparison-videos">
+                        <div class="video-column">
+                            <img src="media/comparison/synthesized/video1_original.png" alt="Video1 Original">
+                            <img src="media/comparison/synthesized/video1_flicker.png" alt="Video1 Flicker">
+                            <img src="media/comparison/synthesized/video1_flickerfix.png" alt="Video1 FlickerFix">
+                            <img src="media/comparison/synthesized/video1_diffuflicker.png" alt="Video1 DiffuFlicker">
+                            <span class="video-label">Video 1</span>
+                        </div>
+                        <div class="video-column">
+                            <img src="media/comparison/synthesized/video2_original.png" alt="Video2 Original">
+                            <img src="media/comparison/synthesized/video2_flicker.png" alt="Video2 Flicker">
+                            <img src="media/comparison/synthesized/video2_flickerfix.png" alt="Video2 FlickerFix">
+                            <img src="media/comparison/synthesized/video2_diffuflicker.png" alt="Video2 DiffuFlicker">
+                            <span class="video-label">Video 2</span>
+                        </div>
+                        <div class="video-column">
+                            <img src="media/comparison/synthesized/video3_original.png" alt="Video3 Original">
+                            <img src="media/comparison/synthesized/video3_flicker.png" alt="Video3 Flicker">
+                            <img src="media/comparison/synthesized/video3_flickerfix.png" alt="Video3 FlickerFix">
+                            <img src="media/comparison/synthesized/video3_diffuflicker.png" alt="Video3 DiffuFlicker">
+                            <span class="video-label">Video 3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Qualitative Comparison - Real World -->
+            <div class="subsection">
+                <h3>Results on Real-World Dashcam Videos</h3>
+                <p class="subsection-desc">No ground truth available - qualitative comparison only. Consecutive 4 frames (t, t+1, t+2, t+3).</p>
+                <div class="real-world-comparison">
+                    <div class="real-row">
+                        <span class="row-label">Original (with flicker)</span>
+                        <div class="real-images">
+                            <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_1_original21.png" alt="Original t">
+                            <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_1_original22.png" alt="Original t+1">
+                            <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_1_original23.png" alt="Original t+2">
+                            <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_1_original24.png" alt="Original t+3">
+                        </div>
+                    </div>
+                    <div class="real-row">
+                        <span class="row-label">FlickerFix</span>
+                        <div class="real-images">
+                            <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_2_flickerfix_21.png" alt="FlickerFix t">
+                            <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_2_flickerfix_22.png" alt="FlickerFix t+1">
+                            <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_2_flickerfix_23.png" alt="FlickerFix t+2">
+                            <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_2_flickerfix_24.png" alt="FlickerFix t+3">
+                        </div>
+                    </div>
+                    <div class="real-row">
+                        <span class="row-label">DiffuFlicker (Ours)</span>
+                        <div class="real-images">
+                            <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_3_diffuflicker_21.png" alt="DiffuFlicker t">
+                            <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_3_diffuflicker_22.png" alt="DiffuFlicker t+1">
+                            <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_3_diffuflicker_23.png" alt="DiffuFlicker t+2">
+                            <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_3_diffuflicker_24.png" alt="DiffuFlicker t+3">
+                        </div>
+                    </div>
+                    <div class="frame-labels">
+                        <span>t</span>
+                        <span>t+1</span>
+                        <span>t+2</span>
+                        <span>t+3</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Inha University. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
