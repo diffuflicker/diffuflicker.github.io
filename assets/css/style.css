@@ -44,6 +44,12 @@ body {
     line-height: 1.125;
 }
 
+.title-emoji {
+    font-size: 1.1em;
+    vertical-align: middle;
+    margin-right: 0.2em;
+}
+
 .subtitle {
     font-family: 'Google Sans', sans-serif;
     font-size: 1.25rem;
