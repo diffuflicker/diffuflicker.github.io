@@ -15,6 +15,127 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Auto-play and sync videos when in viewport
+    const videos = document.querySelectorAll('video');
+    const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const video = entry.target;
+            if (entry.isIntersecting) {
+                video.currentTime = 0;
+                video.play().catch(() => {});
+            } else {
+                video.pause();
+            }
+        });
+    }, { threshold: 0.3 });
+
+    videos.forEach(video => {
+        video.muted = true;
+        video.loop = true;
+        video.playsInline = true;
+        videoObserver.observe(video);
+    });
+
+    // Thumbnail gallery functionality
+    function initThumbnailGallery() {
+        const wrapper = document.querySelector('.thumbnail-gallery-wrapper');
+        const gallery = document.querySelector('.thumbnail-gallery');
+        const thumbnails = document.querySelectorAll('.thumbnail-item');
+        const mainVideo = document.getElementById('main-video');
+        const captionEl = document.getElementById('video-caption');
+        const prevBtn = document.querySelector('.thumb-prev');
+        const nextBtn = document.querySelector('.thumb-next');
+
+        if (!mainVideo || thumbnails.length === 0 || !gallery || !wrapper) return;
+
+        let currentIndex = 0;
+        let scrollIndex = 0;
+        const visibleCount = 5;
+        const itemWidth = 110; // 100px width + 10px gap
+
+        function updateFadeIndicators() {
+            if (scrollIndex > 0) {
+                wrapper.classList.add('has-prev');
+            } else {
+                wrapper.classList.remove('has-prev');
+            }
+
+            if (scrollIndex < thumbnails.length - visibleCount) {
+                wrapper.classList.add('has-next');
+            } else {
+                wrapper.classList.remove('has-next');
+            }
+        }
+
+        function updateGalleryScroll() {
+            const offset = scrollIndex * itemWidth;
+            gallery.scrollTo({ left: offset, behavior: 'smooth' });
+            updateFadeIndicators();
+        }
+
+        function selectVideo(index) {
+            if (index < 0 || index >= thumbnails.length) return;
+            currentIndex = index;
+
+            const thumb = thumbnails[index];
+            const videoSrc = thumb.getAttribute('data-video');
+            const caption = thumb.getAttribute('data-caption');
+
+            // Update active state
+            thumbnails.forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+
+            // Update main video
+            mainVideo.src = videoSrc;
+            mainVideo.load();
+            mainVideo.play().catch(() => {});
+
+            // Update caption
+            if (captionEl && caption) {
+                captionEl.innerHTML = caption;
+            }
+
+            // Auto-scroll to make selected item visible
+            if (currentIndex < scrollIndex) {
+                scrollIndex = currentIndex;
+                updateGalleryScroll();
+            } else if (currentIndex >= scrollIndex + visibleCount) {
+                scrollIndex = currentIndex - visibleCount + 1;
+                updateGalleryScroll();
+            }
+        }
+
+        function goToPrev() {
+            if (currentIndex > 0) {
+                selectVideo(currentIndex - 1);
+            }
+        }
+
+        function goToNext() {
+            if (currentIndex < thumbnails.length - 1) {
+                selectVideo(currentIndex + 1);
+            }
+        }
+
+        // Thumbnail click
+        thumbnails.forEach((thumb, index) => {
+            thumb.addEventListener('click', () => selectVideo(index));
+        });
+
+        // Arrow buttons for video navigation
+        if (prevBtn) {
+            prevBtn.addEventListener('click', goToPrev);
+        }
+        if (nextBtn) {
+            nextBtn.addEventListener('click', goToNext);
+        }
+
+        // Initialize fade indicators
+        updateFadeIndicators();
+    }
+
+    initThumbnailGallery();
+
     // Lazy loading for images
     const images = document.querySelectorAll('img[data-src]');
     const imageObserver = new IntersectionObserver((entries, observer) => {
@@ -30,20 +151,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     images.forEach(img => imageObserver.observe(img));
 
-    // Auto-play videos when in viewport
-    const videos = document.querySelectorAll('video[autoplay]');
-    const videoObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.play();
-            } else {
-                entry.target.pause();
-            }
-        });
-    }, { threshold: 0.5 });
-
-    videos.forEach(video => videoObserver.observe(video));
-
     // Copy citation to clipboard
     const bibtex = document.querySelector('.bibtex pre');
     if (bibtex) {
@@ -52,12 +159,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         bibtex.addEventListener('click', function() {
             navigator.clipboard.writeText(this.textContent.trim()).then(() => {
-                // Show feedback
                 const originalBg = this.parentElement.style.background;
-                this.parentElement.style.background = '#2d4a3e';
+                this.parentElement.style.background = '#3d5a4e';
                 setTimeout(() => {
                     this.parentElement.style.background = originalBg;
-                }, 300);
+                }, 500);
             });
         });
     }

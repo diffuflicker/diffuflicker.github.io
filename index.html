@@ -4,54 +4,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DiffuFlicker: Diffusion-based LED Traffic Light Flicker Mitigation</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚥</text></svg>">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <h1 class="title">DiffuFlicker</h1>
-            <h2 class="subtitle">Diffusion-based LED Traffic Light Flicker Mitigation in Dashcam Videos</h2>
+            <h1 class="title">DiffuFlicker: Diffusion-based LED Traffic Light Flicker Mitigation in Dashcam Videos</h1>
 
             <div class="authors">
-                <span class="author">Sujin Kim<sup>1</sup></span>
-                <span class="author">Juwon Lee<sup>2</sup></span>
+                <span class="author">Sujin Kim<sup>1</sup></span>,
+                <span class="author">Juwon Lee<sup>2</sup></span>,
                 <span class="author">In Kyu Park<sup>1*</sup></span>
             </div>
-
             <div class="affiliations">
-                <p><sup>1</sup>Inha University &nbsp;&nbsp; <sup>2</sup>EMTOMEGA CO., LTD.</p>
-                <p class="corresponding">* Corresponding Author</p>
+                <sup>1</sup>Inha University &nbsp;&nbsp; <sup>2</sup>EMTOMEGA CO., LTD.
             </div>
-<!-- 
-            <div class="links">
-                <a href="#" class="btn">Paper (PDF)</a>
-                <a href="#" class="btn">Code (GitHub)</a>
-                <a href="#" class="btn">Dataset</a>
-            </div> -->
+            <div class="corresponding">* Corresponding Author</div>
+
+            <!-- Publication Links -->
+            <div class="publication-links">
+                <a href="#" class="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/>
+                    </svg>
+                    Paper
+                </a>
+                <a href="#" class="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    Code
+                </a>
+            </div>
         </div>
     </header>
 
     <!-- Teaser - Flicker Result Demo -->
-    <section class="section teaser">
+    <section class="section teaser" style="padding-top: 2.5rem;">
         <div class="container">
-            <div class="teaser-video">
-                <video controls autoplay muted loop playsinline>
-                    <source src="media/teaser/20210705_044407_F_Nor_combined_4K_Short.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+            <div class="video-gallery">
+                <p class="teaser-caption" id="video-caption">
+                    <strong>Video 1:</strong> Camera Type A - Red Signal
+                </p>
+                <!-- Main Video Display -->
+                <div class="main-video-container">
+                    <video id="main-video" controls muted loop playsinline autoplay>
+                        <source src="media/teaser/20210705_044407_F_Nor_combined_4K_Short.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <!-- Thumbnail Selector -->
+                <div class="thumbnail-selector">
+                    <button class="thumb-nav thumb-prev">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                    <div class="thumbnail-gallery-wrapper has-next">
+                    <div class="thumbnail-gallery">
+                        <!-- Camera Type A -->
+                        <div class="thumbnail-item active" data-video="media/teaser/20210705_044407_F_Nor_combined_4K_Short.mp4" data-caption="<strong>Video 1:</strong> Camera Type A - Red Signal">
+                            <img src="media/teaser/video1_thumbnail.png" alt="Video 1">
+                            <span class="thumb-signal"><img src="media/teaser/red.png" alt="Red"></span>
+                        </div>
+                        <div class="thumbnail-item" data-video="media/teaser/20210705_044407_F_Nor_combined_4K_Short.mp4" data-caption="<strong>Video 2:</strong> Camera Type A - Green Signal">
+                            <img src="media/teaser/video1_thumbnail.png" alt="Video 2">
+                            <span class="thumb-signal"><img src="media/teaser/green.png" alt="Green"></span>
+                        </div>
+                        <div class="thumbnail-item" data-video="media/teaser/20210705_044407_F_Nor_combined_4K_Short.mp4" data-caption="<strong>Video 3:</strong> Camera Type A - Red + Left Arrow Signal">
+                            <img src="media/teaser/video1_thumbnail.png" alt="Video 3">
+                            <span class="thumb-signal"><img src="media/teaser/red_left_arrow.png" alt="Red + Left Arrow"></span>
+                        </div>
+                        <div class="thumbnail-item" data-video="media/teaser/20210705_044407_F_Nor_combined_4K_Short.mp4" data-caption="<strong>Video 4:</strong> Camera Type A - Green + Left Arrow Signal">
+                            <img src="media/teaser/video1_thumbnail.png" alt="Video 4">
+                            <span class="thumb-signal"><img src="media/teaser/green_left_arrow.png" alt="Green + Left Arrow"></span>
+                        </div>
+                        <!-- Camera Type B -->
+                        <div class="thumbnail-item" data-video="media/teaser/20210705_044407_F_Nor_combined_4K_Short.mp4" data-caption="<strong>Video 5:</strong> Camera Type B - Red Signal">
+                            <img src="media/teaser/video1_thumbnail.png" alt="Video 5">
+                            <span class="thumb-signal"><img src="media/teaser/red.png" alt="Red"></span>
+                        </div>
+                        <div class="thumbnail-item" data-video="media/teaser/20210705_044407_F_Nor_combined_4K_Short.mp4" data-caption="<strong>Video 6:</strong> Camera Type B - Green Signal">
+                            <img src="media/teaser/video1_thumbnail.png" alt="Video 6">
+                            <span class="thumb-signal"><img src="media/teaser/green.png" alt="Green"></span>
+                        </div>
+                        <div class="thumbnail-item" data-video="media/teaser/20210705_044407_F_Nor_combined_4K_Short.mp4" data-caption="<strong>Video 7:</strong> Camera Type B - Red + Left Arrow Signal">
+                            <img src="media/teaser/video1_thumbnail.png" alt="Video 7">
+                            <span class="thumb-signal"><img src="media/teaser/red_left_arrow.png" alt="Red + Left Arrow"></span>
+                        </div>
+                        <div class="thumbnail-item" data-video="media/teaser/20210705_044407_F_Nor_combined_4K_Short.mp4" data-caption="<strong>Video 8:</strong> Camera Type B - Green + Left Arrow Signal">
+                            <img src="media/teaser/video1_thumbnail.png" alt="Video 8">
+                            <span class="thumb-signal"><img src="media/teaser/green_left_arrow.png" alt="Green + Left Arrow"></span>
+                        </div>
+                        <!-- Camera Type C -->
+                        <div class="thumbnail-item" data-video="media/teaser/20210705_044407_F_Nor_combined_4K_Short.mp4" data-caption="<strong>Video 9:</strong> Camera Type C - Red Signal">
+                            <img src="media/teaser/video1_thumbnail.png" alt="Video 9">
+                            <span class="thumb-signal"><img src="media/teaser/red.png" alt="Red"></span>
+                        </div>
+                        <div class="thumbnail-item" data-video="media/teaser/20210705_044407_F_Nor_combined_4K_Short.mp4" data-caption="<strong>Video 10:</strong> Camera Type C - Green Signal">
+                            <img src="media/teaser/video1_thumbnail.png" alt="Video 10">
+                            <span class="thumb-signal"><img src="media/teaser/green.png" alt="Green"></span>
+                        </div>
+                        <div class="thumbnail-item" data-video="media/teaser/20210705_044407_F_Nor_combined_4K_Short.mp4" data-caption="<strong>Video 11:</strong> Camera Type C - Red + Left Arrow Signal">
+                            <img src="media/teaser/video1_thumbnail.png" alt="Video 11">
+                            <span class="thumb-signal"><img src="media/teaser/red_left_arrow.png" alt="Red + Left Arrow"></span>
+                        </div>
+                        <div class="thumbnail-item" data-video="media/teaser/20210705_044407_F_Nor_combined_4K_Short.mp4" data-caption="<strong>Video 12:</strong> Camera Type C - Green + Left Arrow Signal">
+                            <img src="media/teaser/video1_thumbnail.png" alt="Video 12">
+                            <span class="thumb-signal"><img src="media/teaser/green_left_arrow.png" alt="Green + Left Arrow"></span>
+                        </div>
+                    </div>
+                    </div>
+                    <button class="thumb-nav thumb-next">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <p class="teaser-caption">
-                DiffuFlicker restores LED traffic light signals affected by PWM-camera frequency mismatch.
-            </p>
         </div>
     </section>
 
     <!-- Abstract -->
-    <!--
     <section class="section abstract">
         <div class="container">
             <h2>Abstract</h2>
@@ -67,7 +145,6 @@
             </p>
         </div>
     </section>
-    -->
 
     <!-- Flicker Problem -->
     <section class="section problem">
@@ -192,34 +269,60 @@
             <div class="subsection">
                 <h3>Qualitative Comparison on Synthesized Videos</h3>
                 <p class="subsection-desc">From top to bottom: Original (GT), Flickered input, FlickerFix result, DiffuFlicker result.</p>
-                <div class="comparison-grid-vertical">
-                    <div class="comparison-labels">
-                        <span>Original (GT)</span>
-                        <span>Flickered</span>
-                        <span>FlickerFix</span>
-                        <span>DiffuFlicker (Ours)</span>
-                    </div>
-                    <div class="comparison-videos">
-                        <div class="video-column">
+
+                <div class="comparison-container">
+                    <div class="comparison-panel">
+                        <div class="comparison-item">
                             <img src="media/comparison/synthesized/video1_original.png" alt="Video1 Original">
+                            <span class="compare-label compare-gt">Original (GT)</span>
+                        </div>
+                        <div class="comparison-item">
                             <img src="media/comparison/synthesized/video1_flicker.png" alt="Video1 Flicker">
+                            <span class="compare-label compare-input">Flickered</span>
+                        </div>
+                        <div class="comparison-item">
                             <img src="media/comparison/synthesized/video1_flickerfix.png" alt="Video1 FlickerFix">
+                            <span class="compare-label compare-flickerfix">FlickerFix</span>
+                        </div>
+                        <div class="comparison-item">
                             <img src="media/comparison/synthesized/video1_diffuflicker.png" alt="Video1 DiffuFlicker">
-                            <span class="video-label">Video 1</span>
+                            <span class="compare-label compare-ours">DiffuFlicker (Ours)</span>
                         </div>
-                        <div class="video-column">
+                    </div>
+                    <div class="comparison-panel">
+                        <div class="comparison-item">
                             <img src="media/comparison/synthesized/video2_original.png" alt="Video2 Original">
-                            <img src="media/comparison/synthesized/video2_flicker.png" alt="Video2 Flicker">
-                            <img src="media/comparison/synthesized/video2_flickerfix.png" alt="Video2 FlickerFix">
-                            <img src="media/comparison/synthesized/video2_diffuflicker.png" alt="Video2 DiffuFlicker">
-                            <span class="video-label">Video 2</span>
+                            <span class="compare-label compare-gt">Original (GT)</span>
                         </div>
-                        <div class="video-column">
+                        <div class="comparison-item">
+                            <img src="media/comparison/synthesized/video2_flicker.png" alt="Video2 Flicker">
+                            <span class="compare-label compare-input">Flickered</span>
+                        </div>
+                        <div class="comparison-item">
+                            <img src="media/comparison/synthesized/video2_flickerfix.png" alt="Video2 FlickerFix">
+                            <span class="compare-label compare-flickerfix">FlickerFix</span>
+                        </div>
+                        <div class="comparison-item">
+                            <img src="media/comparison/synthesized/video2_diffuflicker.png" alt="Video2 DiffuFlicker">
+                            <span class="compare-label compare-ours">DiffuFlicker (Ours)</span>
+                        </div>
+                    </div>
+                    <div class="comparison-panel">
+                        <div class="comparison-item">
                             <img src="media/comparison/synthesized/video3_original.png" alt="Video3 Original">
+                            <span class="compare-label compare-gt">Original (GT)</span>
+                        </div>
+                        <div class="comparison-item">
                             <img src="media/comparison/synthesized/video3_flicker.png" alt="Video3 Flicker">
+                            <span class="compare-label compare-input">Flickered</span>
+                        </div>
+                        <div class="comparison-item">
                             <img src="media/comparison/synthesized/video3_flickerfix.png" alt="Video3 FlickerFix">
+                            <span class="compare-label compare-flickerfix">FlickerFix</span>
+                        </div>
+                        <div class="comparison-item">
                             <img src="media/comparison/synthesized/video3_diffuflicker.png" alt="Video3 DiffuFlicker">
-                            <span class="video-label">Video 3</span>
+                            <span class="compare-label compare-ours">DiffuFlicker (Ours)</span>
                         </div>
                     </div>
                 </div>
@@ -230,8 +333,8 @@
                 <h3>Results on Real-World Dashcam Videos</h3>
                 <p class="subsection-desc">No ground truth available - qualitative comparison only. Consecutive 4 frames (t, t+1, t+2, t+3).</p>
                 <div class="real-world-comparison">
-                    <div class="real-row">
-                        <span class="row-label">Original (with flicker)</span>
+                    <div class="real-row-vertical">
+                        <span class="compare-label compare-input">Original (with flicker)</span>
                         <div class="real-images">
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_1_original21.png" alt="Original t">
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_1_original22.png" alt="Original t+1">
@@ -239,8 +342,8 @@
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_1_original24.png" alt="Original t+3">
                         </div>
                     </div>
-                    <div class="real-row">
-                        <span class="row-label">FlickerFix</span>
+                    <div class="real-row-vertical">
+                        <span class="compare-label compare-flickerfix">FlickerFix</span>
                         <div class="real-images">
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_2_flickerfix_21.png" alt="FlickerFix t">
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_2_flickerfix_22.png" alt="FlickerFix t+1">
@@ -248,8 +351,8 @@
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_2_flickerfix_24.png" alt="FlickerFix t+3">
                         </div>
                     </div>
-                    <div class="real-row">
-                        <span class="row-label">DiffuFlicker (Ours)</span>
+                    <div class="real-row-vertical">
+                        <span class="compare-label compare-ours">DiffuFlicker (Ours)</span>
                         <div class="real-images">
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_3_diffuflicker_21.png" alt="DiffuFlicker t">
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_3_diffuflicker_22.png" alt="DiffuFlicker t+1">
@@ -257,7 +360,7 @@
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_3_diffuflicker_24.png" alt="DiffuFlicker t+3">
                         </div>
                     </div>
-                    <div class="frame-labels">
+                    <div class="frame-labels-full">
                         <span>t</span>
                         <span>t+1</span>
                         <span>t+2</span>
@@ -271,7 +374,12 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Inha University. All rights reserved.</p>
+            <div class="footer-lab">
+                <img src="media/VCL.png" alt="VCL Logo" class="footer-logo">
+                <a href="https://image.inha.ac.kr/" target="_blank">Visual Computing & Learning Lab</a>
+                <span class="footer-divider">|</span>
+                <span>Inha University, Korea</span>
+            </div>
         </div>
     </footer>
 
