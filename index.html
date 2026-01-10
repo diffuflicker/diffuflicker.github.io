@@ -176,19 +176,19 @@
                 <p>Rapid on-off transitions across consecutive frames due to direct PWM-camera interference.</p>
                 <div class="image-row-large">
                     <div class="image-item">
-                        <img src="media/flicker_examples/hff/hff_t0.png" alt="HFF t">
+                        <img src="media/flicker_examples/hff/HFF_example_1_12.png" alt="HFF t">
                         <span>t</span>
                     </div>
                     <div class="image-item">
-                        <img src="media/flicker_examples/hff/hff_t1.png" alt="HFF t+1">
+                        <img src="media/flicker_examples/hff/HFF_example_2_13.png" alt="HFF t+1">
                         <span>t+1</span>
                     </div>
                     <div class="image-item">
-                        <img src="media/flicker_examples/hff/hff_t2.png" alt="HFF t+2">
+                        <img src="media/flicker_examples/hff/HFF_example_3_14.png" alt="HFF t+2">
                         <span>t+2</span>
                     </div>
                     <div class="image-item">
-                        <img src="media/flicker_examples/hff/hff_t3.png" alt="HFF t+3">
+                        <img src="media/flicker_examples/hff/HFF_example_4_15.png" alt="HFF t+3">
                         <span>t+3</span>
                     </div>
                 </div>
@@ -199,20 +199,20 @@
                 <p>Gradual brightness variations over tens of frames due to beat phenomenon.</p>
                 <div class="image-row-large">
                     <div class="image-item">
-                        <img src="media/flicker_examples/lff/lff_t0.png" alt="LFF t">
+                        <img src="media/flicker_examples/lff/LFF_example_1_157.png" alt="LFF t">
                         <span>t</span>
                     </div>
                     <div class="image-item">
-                        <img src="media/flicker_examples/lff/lff_t11.png" alt="LFF t+11">
-                        <span>t+11</span>
+                        <img src="media/flicker_examples/lff/LFF_example_2_177.png" alt="LFF t+20">
+                        <span>t+20</span>
                     </div>
                     <div class="image-item">
-                        <img src="media/flicker_examples/lff/lff_t21.png" alt="LFF t+21">
-                        <span>t+21</span>
+                        <img src="media/flicker_examples/lff/LFF_example_3_185.png" alt="LFF t+28">
+                        <span>t+28</span>
                     </div>
                     <div class="image-item">
-                        <img src="media/flicker_examples/lff/lff_t40.png" alt="LFF t+40">
-                        <span>t+40</span>
+                        <img src="media/flicker_examples/lff/LFF_example_4_209.png" alt="LFF t+52">
+                        <span>t+52</span>
                     </div>
                 </div>
             </div>
@@ -271,59 +271,29 @@
                 <p class="subsection-desc">From top to bottom: Original (GT), Flickered input, FlickerFix result, DiffuFlicker result.</p>
 
                 <div class="comparison-container">
-                    <div class="comparison-panel">
-                        <div class="comparison-item">
-                            <img src="media/comparison/synthesized/video1_original.png" alt="Video1 Original">
-                            <span class="compare-label compare-gt">Original (GT)</span>
-                        </div>
-                        <div class="comparison-item">
-                            <img src="media/comparison/synthesized/video1_flicker.png" alt="Video1 Flicker">
-                            <span class="compare-label compare-input">Flickered</span>
-                        </div>
-                        <div class="comparison-item">
-                            <img src="media/comparison/synthesized/video1_flickerfix.png" alt="Video1 FlickerFix">
-                            <span class="compare-label compare-flickerfix">FlickerFix</span>
-                        </div>
-                        <div class="comparison-item">
-                            <img src="media/comparison/synthesized/video1_diffuflicker.png" alt="Video1 DiffuFlicker">
-                            <span class="compare-label compare-ours">DiffuFlicker (Ours)</span>
-                        </div>
+                    <div class="comparison-labels">
+                        <span class="compare-label compare-gt">Original (GT)</span>
+                        <span class="compare-label compare-input">Flickered</span>
+                        <span class="compare-label compare-flickerfix">FlickerFix</span>
+                        <span class="compare-label compare-ours">DiffuFlicker (Ours)</span>
                     </div>
                     <div class="comparison-panel">
-                        <div class="comparison-item">
-                            <img src="media/comparison/synthesized/video2_original.png" alt="Video2 Original">
-                            <span class="compare-label compare-gt">Original (GT)</span>
-                        </div>
-                        <div class="comparison-item">
-                            <img src="media/comparison/synthesized/video2_flicker.png" alt="Video2 Flicker">
-                            <span class="compare-label compare-input">Flickered</span>
-                        </div>
-                        <div class="comparison-item">
-                            <img src="media/comparison/synthesized/video2_flickerfix.png" alt="Video2 FlickerFix">
-                            <span class="compare-label compare-flickerfix">FlickerFix</span>
-                        </div>
-                        <div class="comparison-item">
-                            <img src="media/comparison/synthesized/video2_diffuflicker.png" alt="Video2 DiffuFlicker">
-                            <span class="compare-label compare-ours">DiffuFlicker (Ours)</span>
-                        </div>
+                        <img src="media/comparison/synthesized/video1_original.png" alt="Video1 Original">
+                        <img src="media/comparison/synthesized/video1_flicker.png" alt="Video1 Flicker">
+                        <img src="media/comparison/synthesized/video1_flickerfix.png" alt="Video1 FlickerFix">
+                        <img src="media/comparison/synthesized/video1_diffuflicker.png" alt="Video1 DiffuFlicker">
                     </div>
                     <div class="comparison-panel">
-                        <div class="comparison-item">
-                            <img src="media/comparison/synthesized/video3_original.png" alt="Video3 Original">
-                            <span class="compare-label compare-gt">Original (GT)</span>
-                        </div>
-                        <div class="comparison-item">
-                            <img src="media/comparison/synthesized/video3_flicker.png" alt="Video3 Flicker">
-                            <span class="compare-label compare-input">Flickered</span>
-                        </div>
-                        <div class="comparison-item">
-                            <img src="media/comparison/synthesized/video3_flickerfix.png" alt="Video3 FlickerFix">
-                            <span class="compare-label compare-flickerfix">FlickerFix</span>
-                        </div>
-                        <div class="comparison-item">
-                            <img src="media/comparison/synthesized/video3_diffuflicker.png" alt="Video3 DiffuFlicker">
-                            <span class="compare-label compare-ours">DiffuFlicker (Ours)</span>
-                        </div>
+                        <img src="media/comparison/synthesized/video2_original.png" alt="Video2 Original">
+                        <img src="media/comparison/synthesized/video2_flicker.png" alt="Video2 Flicker">
+                        <img src="media/comparison/synthesized/video2_flickerfix.png" alt="Video2 FlickerFix">
+                        <img src="media/comparison/synthesized/video2_diffuflicker.png" alt="Video2 DiffuFlicker">
+                    </div>
+                    <div class="comparison-panel">
+                        <img src="media/comparison/synthesized/video3_original.png" alt="Video3 Original">
+                        <img src="media/comparison/synthesized/video3_flicker.png" alt="Video3 Flicker">
+                        <img src="media/comparison/synthesized/video3_flickerfix.png" alt="Video3 FlickerFix">
+                        <img src="media/comparison/synthesized/video3_diffuflicker.png" alt="Video3 DiffuFlicker">
                     </div>
                 </div>
             </div>
@@ -333,38 +303,36 @@
                 <h3>Results on Real-World Dashcam Videos</h3>
                 <p class="subsection-desc">No ground truth available - qualitative comparison only. Consecutive 4 frames (t, t+1, t+2, t+3).</p>
                 <div class="real-world-comparison">
-                    <div class="real-row-vertical">
-                        <span class="compare-label compare-input">Original (with flicker)</span>
-                        <div class="real-images">
+                    <div class="real-labels">
+                        <span class="compare-label compare-input">Original</span>
+                        <span class="compare-label compare-flickerfix">FlickerFix</span>
+                        <span class="compare-label compare-ours">DiffuFlicker (Ours)</span>
+                    </div>
+                    <div class="real-images-grid">
+                        <div class="real-images-row">
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_1_original21.png" alt="Original t">
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_1_original22.png" alt="Original t+1">
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_1_original23.png" alt="Original t+2">
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_1_original24.png" alt="Original t+3">
                         </div>
-                    </div>
-                    <div class="real-row-vertical">
-                        <span class="compare-label compare-flickerfix">FlickerFix</span>
-                        <div class="real-images">
+                        <div class="real-images-row">
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_2_flickerfix_21.png" alt="FlickerFix t">
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_2_flickerfix_22.png" alt="FlickerFix t+1">
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_2_flickerfix_23.png" alt="FlickerFix t+2">
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_2_flickerfix_24.png" alt="FlickerFix t+3">
                         </div>
-                    </div>
-                    <div class="real-row-vertical">
-                        <span class="compare-label compare-ours">DiffuFlicker (Ours)</span>
-                        <div class="real-images">
+                        <div class="real-images-row">
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_3_diffuflicker_21.png" alt="DiffuFlicker t">
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_3_diffuflicker_22.png" alt="DiffuFlicker t+1">
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_3_diffuflicker_23.png" alt="DiffuFlicker t+2">
                             <img src="media/comparison/real_world/5_Sujin_REC2_20250413_160532_3_diffuflicker_24.png" alt="DiffuFlicker t+3">
                         </div>
-                    </div>
-                    <div class="frame-labels-full">
-                        <span>t</span>
-                        <span>t+1</span>
-                        <span>t+2</span>
-                        <span>t+3</span>
+                        <div class="frame-labels-row">
+                            <span>t</span>
+                            <span>t+1</span>
+                            <span>t+2</span>
+                            <span>t+3</span>
+                        </div>
                     </div>
                 </div>
             </div>
