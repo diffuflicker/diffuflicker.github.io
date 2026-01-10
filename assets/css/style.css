@@ -516,6 +516,158 @@ body {
     background: #fff;
 }
 
+/* Results Table */
+.results-table {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto 24px;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.results-table thead {
+    background: #363636;
+    color: #fff;
+}
+
+.results-table th {
+    padding: 12px 16px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.results-table td {
+    padding: 10px 16px;
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.results-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.results-table tbody tr:nth-child(even) {
+    background: #fafafa;
+}
+
+.results-table tbody tr:hover {
+    background: #f0f7ff;
+}
+
+.results-table .highlight {
+    font-weight: 600;
+    color: #007bff;
+}
+
+.results-table .best {
+    font-weight: 700;
+    color: #28a745;
+}
+
+/* Ablation Summary */
+.ablation-summary {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
+
+.ablation-item {
+    background: #f8f9fa;
+    padding: 16px 24px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 200px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.ablation-item h4 {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.ablation-item .value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #363636;
+}
+
+.ablation-item .label {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 4px;
+}
+
+.results-note {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Table Image with Caption */
+.table-figure {
+    text-align: center;
+    margin: 0 auto 24px;
+    max-width: 600px;
+}
+
+.table-figure img {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table-figure figcaption {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+.table-figure figcaption strong {
+    color: #363636;
+}
+
+/* Ablation Grid */
+.ablation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.ablation-figure {
+    text-align: center;
+}
+
+.ablation-figure img {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ablation-figure figcaption {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.4;
+}
+
+.ablation-figure figcaption strong {
+    color: #363636;
+}
+
 .subsection {
     margin-bottom: 48px;
 }
@@ -541,6 +693,7 @@ body {
     display: flex;
     gap: 0.5rem;
     align-items: stretch;
+    padding-right: 90px; /* Balance with left labels */
 }
 
 .comparison-labels {
@@ -583,6 +736,7 @@ body {
     gap: 0.5rem;
     margin-top: 16px;
     background: #fff;
+    padding-right: 90px; /* Balance with left labels */
 }
 
 .real-labels {
@@ -699,6 +853,11 @@ body {
 
     .comparison-container {
         flex-direction: column;
+        padding-right: 0;
+    }
+
+    .real-world-comparison {
+        padding-right: 0;
     }
 
     .pipeline-details {

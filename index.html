@@ -139,9 +139,9 @@
                 a rule-based baseline method and a diffusion-based restoration approach, termed <strong>DiffuFlicker</strong>.
                 DiffuFlicker employs a class-conditioned temporal 3D U-Net together with an SDEdit-based adaptive restoration strategy,
                 enabling robust recovery under both high-frequency (HFF) and low-frequency (LFF) flicker conditions.
-                Experimental results on 132 synthetic video sequences demonstrate that DiffuFlicker achieves an average
-                PSNR improvement of <strong>+4.74 dB</strong>, outperforming the rule-based baseline, which yields a +3.85 dB gain,
-                by a margin of 0.89 dB.
+                Experimental results on 144 synthetic video sequences demonstrate that DiffuFlicker achieves an average
+                PSNR improvement of <strong>+6.35 dB</strong>, outperforming the rule-based baseline, which yields a +5.27 dB gain,
+                by a margin of 1.08 dB.
             </p>
         </div>
     </section>
@@ -228,7 +228,7 @@
             </div>
             <p class="method-desc">
                 DiffuFlicker uses a class-conditioned temporal 3D U-Net with SDEdit-based adaptive restoration.
-                The model takes 5 consecutive ROI frames as input, leveraging temporal context from preceding frames
+                The model takes 10 consecutive ROI frames as input, leveraging temporal context from preceding frames
                 to restore the target frame. Two conditions guide the restoration: (1) a reference ROI from the brightest frame,
                 and (2) a class embedding representing one of 8 traffic light states.
             </p>
@@ -264,6 +264,23 @@
     <section class="section results">
         <div class="container">
             <h2>Experimental Results</h2>
+
+            <!-- Quantitative Results -->
+            <div class="subsection">
+                <h3>Quantitative Results</h3>
+                <p class="subsection-desc">Performance comparison on 144 synthetic flicker video sequences (PWM: 90, 100, 120 Hz × FPS: 27.5, 29.97).</p>
+
+                <figure class="table-figure">
+                    <img src="media/tables/table_main_result.png" alt="Flicker removal performance comparison">
+                    <figcaption><strong>Table 1.</strong> Flicker removal performance comparison against GT. The best results are marked in bold and the second-best results are underlined.</figcaption>
+                </figure>
+
+                <p class="results-note">
+                    DiffuFlicker achieves <strong>+6.35 dB</strong> PSNR improvement, outperforming FlickerFix by <strong>1.08 dB</strong>.
+                    FlickerFix shows higher SSIM due to its reference-mask-based deterministic synthesis,
+                    while DiffuFlicker achieves superior pixel-level reconstruction accuracy.
+                </p>
+            </div>
 
             <!-- Qualitative Comparison - Synthesized -->
             <div class="subsection">
@@ -334,6 +351,29 @@
                             <span>t+3</span>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Ablation Studies -->
+            <div class="subsection">
+                <h3>Ablation Studies</h3>
+                <p class="subsection-desc">Analysis of DiffuFlicker performance across different conditions.</p>
+
+                <div class="ablation-grid">
+                    <figure class="ablation-figure">
+                        <img src="media/tables/table_ablation_pwm_frequency.png" alt="Performance by PWM frequency">
+                        <figcaption><strong>Table 2.</strong> PSNR restoration performance by PWM frequency (dB). The best results are marked in bold.</figcaption>
+                    </figure>
+
+                    <figure class="ablation-figure">
+                        <img src="media/tables/table_ablation_flicker_type.png" alt="Performance by flicker type">
+                        <figcaption><strong>Table 3.</strong> PSNR restoration performance by flicker type. The best results are marked in bold.</figcaption>
+                    </figure>
+
+                    <figure class="ablation-figure">
+                        <img src="media/tables/table_ablation_temporal_context.png" alt="Temporal context length ablation">
+                        <figcaption><strong>Table 4.</strong> Ablation study on temporal context length. The model with 10 frames achieves the best performance.</figcaption>
+                    </figure>
                 </div>
             </div>
         </div>
