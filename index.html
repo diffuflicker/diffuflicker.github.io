@@ -235,31 +235,6 @@
         </div>
     </section>
 
-    <!-- Pipeline -->
-    <section class="section pipeline">
-        <div class="container">
-            <h2>Processing Pipeline</h2>
-            <p class="section-desc">
-                The system performs detection (with tracking IDs), classification (signal state labels),
-                and segmentation (highlighted signal regions) on dashcam video frames.
-            </p>
-            <div class="pipeline-image">
-                <img src="media/pipeline/detection_class_seg.png" alt="Detection, Classification, Segmentation Pipeline">
-            </div>
-            <div class="pipeline-details">
-                <div class="detail-item">
-                    <strong>Detection:</strong> YOLO11m with 4 classes (AP50: 94.86%)
-                </div>
-                <div class="detail-item">
-                    <strong>Classification:</strong> EfficientNetV2-S with 8 signal states (Accuracy: 93.67%)
-                </div>
-                <div class="detail-item">
-                    <strong>Segmentation:</strong> U-Net for active signal regions (Accuracy: 95.83%)
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Results -->
     <section class="section results">
         <div class="container">
