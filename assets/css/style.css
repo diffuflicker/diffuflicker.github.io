@@ -640,9 +640,10 @@ body {
 
 /* Ablation Grid */
 .ablation-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
     margin-top: 24px;
 }
 
@@ -651,17 +652,17 @@ body {
 }
 
 .ablation-figure img {
-    width: 100%;
-    max-width: 100%;
+    max-width: 600px;
+    height: auto;
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .ablation-figure figcaption {
-    margin-top: 10px;
-    font-size: 0.85rem;
+    margin-top: 12px;
+    font-size: 0.9rem;
     color: #666;
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 .ablation-figure figcaption strong {
